@@ -91,11 +91,8 @@ export default function BasicTableOne() {
   =================================*/
   const totalPages = Math.ceil(users.length / ROWS_PER_PAGE);
   const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
-  const paginatedUsers = users.slice(
-    startIndex,
-    startIndex + ROWS_PER_PAGE
-  );
-  
+  const paginatedUsers = users.slice(startIndex, startIndex + ROWS_PER_PAGE);
+
   const handleDelete = async (userId: string | number) => {
     console.log(userId);
     if (!window.confirm("Are you sure you want to delete this user?")) return;
@@ -119,6 +116,13 @@ export default function BasicTableOne() {
           =============================== */}
           <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
             <TableRow>
+              <TableCell
+                isHeader
+                className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+              >
+                SR No
+              </TableCell>
+
               <TableCell
                 isHeader
                 className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
@@ -190,8 +194,12 @@ export default function BasicTableOne() {
                 </TableCell>
               </TableRow>
             ) : (
-              paginatedUsers.map((user) => (
+              // paginatedUsers.map((user) => (
+              paginatedUsers.map((user, index) => (
                 <TableRow key={user.id}>
+                  <TableCell className="px-5 py-4 text-start text-theme-sm text-gray-500 dark:text-gray-400">
+                    {(currentPage - 1) * ROWS_PER_PAGE + index + 1}
+                  </TableCell>
                   <TableCell className="px-5 py-4 sm:px-6 text-start text-theme-sm text-gray-800 dark:text-white/90">
                     {user.username}
                   </TableCell>
